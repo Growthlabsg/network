@@ -1,0 +1,214 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========== GrowthLab design tokens ==========
+   Teal #0F7377 = main brand. Slate #1E293B = headings, dark text. Amber #F59E0B = secondary/accent.
+   Usage: bg-primary, text-growthlab-slate, bg-secondary; CTA strip: from-primary to-primary/90.
+   ========== */
+
+:root {
+  /* GrowthLab tokens (HSL for theme-aware use) */
+  --growthlab-teal: 187 78% 26%;
+  --growthlab-teal-light: 187 78% 90%;
+  --growthlab-slate: 222 47% 11%;
+  --growthlab-slate-light: 210 40% 96%;
+  --growthlab-orange: 43 96% 56%;
+  --growthlab-orange-light: 43 96% 90%;
+
+  /* Brand hex (for gradients, borders, non-HSL) */
+  --primary-teal: #0F7377;
+  --teal-light: #00A884;
+  --growthlab-teal-hex: #0F7377;
+  --growthlab-slate-hex: #1E293B;
+  --growthlab-amber-hex: #F59E0B;
+  --growthlab-light-hex: #F8FAFC;
+  --growthlab-gray-hex: #334155;
+  --confetti-gold: #FFD700;
+  --confetti-coral: #FF6B6B;
+  /* Semantic accents for My Network */
+  --network-connections: var(--primary-teal);
+  --network-pending: var(--growthlab-amber-hex);
+  --network-growth: #059669;
+  --network-messages: #7C3AED;
+
+  /* Light mode (surfaces and text) */
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --primary: 187 78% 26%;
+  --primary-foreground: 210 40% 98%;
+  --border: 214.3 31.8% 91.4%;
+  --muted: 215.4 16.3% 46.9%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 222.2 84% 4.9%;
+
+  /* Convenience */
+  --text-primary: #1E293B;
+  --text-secondary: #64748B;
+  --bg-page: #F8FAFC;
+  --border-radius: 0.5rem;
+}
+
+.dark {
+  /* Dark mode – override GrowthLab tokens */
+  --background: 224 71% 4%;
+  --foreground: 213 31% 91%;
+  --primary: 168 76% 42%;
+  --primary-foreground: 210 40% 98%;
+  --border: 216 34% 17%;
+  --muted: 215 20% 35%;
+  --muted-foreground: 215 20% 55%;
+  --card: 224 71% 6%;
+  --card-foreground: 213 31% 91%;
+  --growthlab-slate: 210 40% 96%;
+  --growthlab-slate-light: 222 47% 11%;
+  --primary-teal: #14b8a6;
+  --teal-light: #2dd4bf;
+}
+
+/* Primary gradient: 135deg for buttons, logos, key CTAs */
+.gs-gradient {
+  background: linear-gradient(135deg, var(--primary-teal) 0%, var(--teal-light) 100%);
+  color: white;
+}
+
+.gs-gradient-text {
+  color: white;
+}
+
+.gs-card-hover {
+  @apply transition-all duration-300 rounded-xl border border-gray-200;
+}
+.dark .gs-card-hover {
+  border-color: hsl(216, 34%, 17%);
+}
+.gs-card-hover:hover {
+  box-shadow: 0 10px 25px -5px rgba(15, 115, 119, 0.15), 0 8px 10px -6px rgba(0, 168, 132, 0.1);
+  border-color: var(--primary-teal);
+}
+
+.gs-glass {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+.dark .gs-glass {
+  background: rgba(15, 23, 42, 0.85);
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+.gs-filter-active {
+  background: rgba(15, 115, 119, 0.12);
+  color: var(--primary-teal);
+  border: 1px solid rgba(15, 115, 119, 0.35);
+}
+
+/* Scrollbar – teal brand */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(15, 115, 119, 0.45) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: rgba(15, 115, 119, 0.45);
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(15, 115, 119, 0.65);
+}
+.dark * {
+  scrollbar-color: rgba(20, 184, 166, 0.5) transparent;
+}
+.dark *::-webkit-scrollbar-thumb {
+  background: rgba(20, 184, 166, 0.5);
+}
+.dark *::-webkit-scrollbar-thumb:hover {
+  background: rgba(45, 212, 191, 0.6);
+}
+
+::selection {
+  background: var(--primary-teal);
+  color: white;
+}
+
+body {
+  background: var(--bg-page);
+  color: var(--text-primary);
+}
+.dark body {
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+}
+
+/* Mobile app-like: safe areas and touch targets */
+.pb-safe-fab {
+  padding-bottom: 6rem;
+}
+@supports (padding: env(safe-area-inset-bottom)) {
+  .pb-safe {
+    padding-bottom: calc(1.5rem + env(safe-area-inset-bottom));
+  }
+  .pb-safe-fab {
+    padding-bottom: calc(6rem + env(safe-area-inset-bottom));
+  }
+}
+/* Minimum touch target for mobile (44px) */
+@media (max-width: 768px) {
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Primary CTA – brand gradient */
+.btn-primary {
+  @apply font-medium rounded-lg transition-all duration-200 focus:ring-2 focus:ring-offset-2;
+  background: linear-gradient(135deg, #0F7377 0%, #00A884 100%);
+  color: white;
+  border: none;
+}
+.btn-primary:hover {
+  filter: brightness(1.05);
+  box-shadow: 0 4px 14px rgba(15, 115, 119, 0.35);
+}
+.btn-primary:focus-visible {
+  --tw-ring-color: #0F7377;
+}
+
+.dark .btn-primary {
+  background: linear-gradient(135deg, #14b8a6 0%, #2dd4bf 100%);
+}
+.dark .btn-primary:hover {
+  box-shadow: 0 4px 14px rgba(20, 184, 166, 0.4);
+}
+
+.btn-outline-primary {
+  @apply font-medium rounded-lg transition-colors border-2;
+  border-color: var(--primary-teal);
+  color: var(--primary-teal);
+}
+.btn-outline-primary:hover {
+  background: var(--primary-teal);
+  color: white;
+}
+
+.link-teal {
+  color: var(--primary-teal);
+}
+.link-teal:hover {
+  text-decoration: underline;
+}
+
+/* Common usage (Tailwind): primary button bg-primary hover:bg-primary/90;
+   Headings text-growthlab-slate or text-[#1E293B];
+   Logo gradient from-primary to-growthlab-slate;
+   CTA strip gs-gradient or from-primary to-primary/90 + white text;
+   Focus ring focus:ring-primary; muted text text-muted or #334155 / #64748B. */
