@@ -249,17 +249,26 @@ function StartupsPageInner() {
             filtersOpen ? 'block' : 'hidden md:block'
           )}
         >
-          <div className="rounded-xl border border-gray-200 dark:border-slate-700/50 bg-white dark:bg-slate-900/30 p-4 sticky top-24">
-            <div className="flex items-center justify-between mb-4">
+          <div className="rounded-xl border border-gray-200 dark:border-slate-700/50 bg-white dark:bg-slate-900/30 p-4 md:sticky md:top-24 max-md:max-h-[85vh] max-md:overflow-y-auto">
+            <div className="flex items-center justify-between mb-4 gap-2">
               <h3 className="font-medium text-growthlab-slate flex items-center gap-2">
                 <Filter className="h-4 w-4 text-primary" />
                 Filters
               </h3>
-              {hasFilters && (
-                <button type="button" onClick={clearAll} className="text-sm text-primary hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded">
-                  Clear all
+              <div className="flex items-center gap-2">
+                {hasFilters && (
+                  <button type="button" onClick={clearAll} className="text-sm text-primary hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded touch-target py-2">
+                    Clear all
+                  </button>
+                )}
+                <button
+                  type="button"
+                  onClick={() => setFiltersOpen(false)}
+                  className="md:hidden inline-flex items-center justify-center rounded-lg bg-primary text-white px-4 py-2.5 text-sm font-medium min-h-11 touch-target"
+                >
+                  Done
                 </button>
-              )}
+              </div>
             </div>
             <div className="space-y-4">
               <div>
@@ -345,19 +354,19 @@ function StartupsPageInner() {
 
         <div className="md:col-span-3 space-y-4">
           <div className="flex flex-col gap-4">
-            <div className="flex flex-col sm:flex-row gap-3">
-              <div className="relative flex-1">
+            <div className="flex flex-col gap-3">
+              <div className="relative flex-1 min-w-0">
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted" aria-hidden />
                 <Input
                   placeholder="Search by name, description, location, tags…"
                   value={searchInput}
                   onChange={(e) => setSearchInput(e.target.value)}
-                  className="pl-10 rounded-xl border-gray-200 dark:border-slate-600 dark:bg-slate-800/50"
+                  className="pl-10 rounded-xl border-gray-200 dark:border-slate-600 dark:bg-slate-800/50 min-h-11"
                   aria-label="Search startups"
                 />
               </div>
-              <div className="flex gap-2 flex-wrap items-center">
-                <span className="flex items-center rounded-xl border border-gray-200 dark:border-slate-600 p-0.5" role="group" aria-label="View mode">
+              <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 scrollbar-thin md:overflow-visible md:flex-wrap items-center min-h-11">
+                <span className="flex items-center rounded-xl border border-gray-200 dark:border-slate-600 p-0.5 shrink-0" role="group" aria-label="View mode">
                   <button
                     type="button"
                     onClick={(e) => {
@@ -369,7 +378,7 @@ function StartupsPageInner() {
                       if (typeof window !== 'undefined') window.history.replaceState({}, '', `${window.location.pathname}${params.toString() ? `?${params.toString()}` : ''}`);
                     }}
                     className={cn(
-                      'inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg transition-colors',
+                      'inline-flex h-10 w-10 md:h-9 md:w-9 cursor-pointer items-center justify-center rounded-lg transition-colors touch-target',
                       viewMode === 'card' ? 'bg-primary text-white' : 'text-muted hover:bg-gray-100 dark:hover:bg-slate-800'
                     )}
                     title="Card view"
@@ -389,7 +398,7 @@ function StartupsPageInner() {
                       if (typeof window !== 'undefined') window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
                     }}
                     className={cn(
-                      'inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg transition-colors',
+                      'inline-flex h-10 w-10 md:h-9 md:w-9 cursor-pointer items-center justify-center rounded-lg transition-colors touch-target',
                       viewMode === 'badge' ? 'bg-primary text-white' : 'text-muted hover:bg-gray-100 dark:hover:bg-slate-800'
                     )}
                     title="Badge view"
@@ -402,7 +411,7 @@ function StartupsPageInner() {
                 <button
                   type="button"
                   onClick={() => setFiltersOpen((o) => !o)}
-                  className="md:hidden inline-flex items-center gap-2 rounded-xl border border-gray-200 dark:border-slate-600 px-3 py-2 text-sm font-medium text-growthlab-slate"
+                  className="inline-flex items-center gap-2 rounded-xl border border-gray-200 dark:border-slate-600 px-3 py-2.5 text-sm font-medium text-growthlab-slate min-h-11 touch-target shrink-0 md:hidden"
                 >
                   <Filter className="h-4 w-4" />
                   Filters
@@ -411,7 +420,7 @@ function StartupsPageInner() {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as SortKey)}
-                  className="rounded-xl border border-gray-200 dark:border-slate-600 dark:bg-slate-800/50 px-3 py-2 text-sm text-growthlab-slate focus:ring-2 focus:ring-primary"
+                  className="rounded-xl border border-gray-200 dark:border-slate-600 dark:bg-slate-800/50 px-3 py-2.5 text-sm text-growthlab-slate focus:ring-2 focus:ring-primary min-h-11 min-w-[120px] shrink-0"
                   aria-label="Sort by"
                 >
                   <option value="trending">Trending</option>
@@ -420,14 +429,14 @@ function StartupsPageInner() {
                   <option value="funding">Funding</option>
                   <option value="growth">Growth</option>
                 </select>
-                <Button variant="outline" size="sm" onClick={() => setSortOrder((o) => (o === 'asc' ? 'desc' : 'asc'))} className="rounded-xl" aria-label={sortOrder === 'asc' ? 'Ascending' : 'Descending'}>
+                <Button variant="outline" size="sm" onClick={() => setSortOrder((o) => (o === 'asc' ? 'desc' : 'asc'))} className="rounded-xl min-h-11 shrink-0 touch-target" aria-label={sortOrder === 'asc' ? 'Ascending' : 'Descending'}>
                   {sortOrder === 'asc' ? 'A–Z' : 'Z–A'}
                 </Button>
               </div>
             </div>
 
-            {/* Quick filter chips – soft per-chip accent when on */}
-            <div className="flex flex-wrap items-center gap-2">
+            {/* Quick filter chips – horizontal scroll on mobile, wrap on desktop */}
+            <div className="flex overflow-x-auto pb-2 -mx-1 scrollbar-thin md:overflow-visible md:flex-wrap items-center gap-2 md:gap-2">
               {[
                 { key: 'hiring', label: 'Hiring', on: hiringOnly, set: setHiringOnly },
                 { key: 'verified', label: 'Verified', on: verifiedOnly, set: setVerifiedOnly },
@@ -439,7 +448,7 @@ function StartupsPageInner() {
                   type="button"
                   onClick={() => set((p: boolean) => !p)}
                   className={cn(
-                    'rounded-full px-3 py-1.5 text-xs font-medium transition-colors border',
+                    'rounded-full px-3 py-2 md:py-1.5 text-xs font-medium transition-colors border shrink-0 touch-target',
                     on ? QUICK_FILTER_ACCENT[key] : 'bg-slate-100 text-muted border-transparent hover:bg-slate-200/80 dark:bg-slate-800 dark:hover:bg-slate-700'
                   )}
                 >
@@ -489,7 +498,7 @@ function StartupsPageInner() {
                   <Link
                     key={s.id}
                     href={`/startups/${s.id}`}
-                    className="flex shrink-0 items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900/50 px-3 py-2 min-w-[200px] hover:border-primary/50 hover:bg-primary/[0.04] dark:hover:bg-primary/10 transition-colors"
+                    className="flex shrink-0 items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900/50 px-3 py-2.5 min-w-[200px] min-h-11 hover:border-primary/50 hover:bg-primary/[0.04] dark:hover:bg-primary/10 transition-colors touch-target"
                   >
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 dark:bg-primary/15">
                       <Rocket className="h-5 w-5 text-primary" />
@@ -514,10 +523,10 @@ function StartupsPageInner() {
                 <h3 className="text-lg font-semibold text-growthlab-slate mb-2">No startups found</h3>
                 <p className="text-muted mb-6 max-w-sm mx-auto">Try different filters or search terms. The directory includes startups from all regions.</p>
                 <div className="flex flex-wrap justify-center gap-2">
-                  <Button variant="outline" onClick={clearAll} className="rounded-lg border-slate-300 dark:border-slate-600 text-growthlab-slate hover:bg-slate-100 dark:hover:bg-slate-800">
+                  <Button variant="outline" onClick={clearAll} className="rounded-lg border-slate-300 dark:border-slate-600 text-growthlab-slate hover:bg-slate-100 dark:hover:bg-slate-800 min-h-11 touch-target">
                     Clear filters
                   </Button>
-                  <Button variant="ghost" onClick={() => setFiltersOpen(true)} className="md:hidden rounded-lg text-muted">
+                  <Button variant="ghost" onClick={() => setFiltersOpen(true)} className="md:hidden rounded-lg text-muted min-h-11 touch-target">
                     Open filters
                   </Button>
                 </div>
@@ -530,7 +539,7 @@ function StartupsPageInner() {
                 <span className="text-sm font-medium text-growthlab-slate">Badge view</span>
                 <span className="text-xs text-muted">— compact grid</span>
               </div>
-              <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3" role="list">
+              <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 gap-y-4" role="list">
                 {paginated.map((startup) => (
                   <StartupBadge key={startup.id} startup={startup} saved={savedIds.has(startup.id)} onToggleSaved={() => toggleSaved(startup.id)} stageColour={STAGE_COLOUR[startup.stage] ?? STAGE_PILL} regionColour={REGION_COLOUR} />
                 ))}
@@ -539,7 +548,7 @@ function StartupsPageInner() {
                 <nav className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-gray-200 dark:border-slate-700" aria-label="Pagination">
                   <p className="text-sm text-muted">Page {safePage} of {totalPages}</p>
                   <div className="flex items-center gap-2">
-                    <Button variant="outline" size="sm" className="rounded-lg" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={safePage <= 1} aria-label="Previous page">
+                    <Button variant="outline" size="sm" className="rounded-lg min-h-11 min-w-11 touch-target" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={safePage <= 1} aria-label="Previous page">
                       <ChevronLeft className="h-4 w-4" />
                     </Button>
                     <span className="flex items-center gap-1 px-2">
@@ -554,7 +563,7 @@ function StartupsPageInner() {
                             key={pageNum}
                             type="button"
                             onClick={() => setPage(pageNum)}
-                            className={cn('h-8 min-w-[2rem] rounded-lg text-sm font-medium', pageNum === safePage ? 'bg-primary text-white' : 'text-muted hover:bg-gray-100 dark:hover:bg-slate-800')}
+                            className={cn('h-10 min-w-[2.5rem] md:h-8 md:min-w-[2rem] rounded-lg text-sm font-medium touch-target', pageNum === safePage ? 'bg-primary text-white' : 'text-muted hover:bg-gray-100 dark:hover:bg-slate-800')}
                             aria-label={`Page ${pageNum}`}
                             aria-current={pageNum === safePage ? 'page' : undefined}
                           >
@@ -563,7 +572,7 @@ function StartupsPageInner() {
                         );
                       })}
                     </span>
-                    <Button variant="outline" size="sm" className="rounded-lg" onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={safePage >= totalPages} aria-label="Next page">
+                    <Button variant="outline" size="sm" className="rounded-lg min-h-11 min-w-11 touch-target" onClick={() => setPage((p) => Math.min(totalPages, p + 1))} disabled={safePage >= totalPages} aria-label="Next page">
                       <ChevronRight className="h-4 w-4" />
                     </Button>
                   </div>
@@ -587,7 +596,7 @@ function StartupsPageInner() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="rounded-lg"
+                      className="rounded-lg min-h-11 min-w-11 touch-target"
                       onClick={() => setPage((p) => Math.max(1, p - 1))}
                       disabled={safePage <= 1}
                       aria-label="Previous page"
@@ -607,7 +616,7 @@ function StartupsPageInner() {
                             type="button"
                             onClick={() => setPage(pageNum)}
                             className={cn(
-                              'h-8 min-w-[2rem] rounded-lg text-sm font-medium',
+                              'h-10 min-w-[2.5rem] md:h-8 md:min-w-[2rem] rounded-lg text-sm font-medium touch-target',
                               pageNum === safePage ? 'bg-primary text-white' : 'text-muted hover:bg-gray-100 dark:hover:bg-slate-800'
                             )}
                             aria-label={`Page ${pageNum}`}
@@ -621,7 +630,7 @@ function StartupsPageInner() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="rounded-lg"
+                      className="rounded-lg min-h-11 min-w-11 touch-target"
                       onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                       disabled={safePage >= totalPages}
                       aria-label="Next page"
@@ -850,8 +859,8 @@ function StartupCard({
                   </Badge>
                 )}
               </div>
-              <Link href={`/startups/${startup.id}`}>
-                <Button size="sm" className="btn-primary rounded-lg">
+              <Link href={`/startups/${startup.id}`} className="min-h-11 inline-flex items-center">
+                <Button size="sm" className="btn-primary rounded-lg min-h-11 touch-target">
                   View profile
                   <ArrowUpRight className="ml-1 h-3 w-3" />
                 </Button>

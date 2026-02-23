@@ -435,7 +435,7 @@ function ExpertCard({
           )}
         </div>
 
-        <div className="flex items-center gap-2" onClick={(e) => e.stopPropagation()}>
+        <div className="flex items-center gap-2 overflow-x-auto overflow-y-hidden pt-3 mt-1 border-t border-slate-200 dark:border-slate-700 min-w-0" onClick={(e) => e.stopPropagation()}>
           <Button size="sm" variant="outline" className="rounded-lg gap-1.5 shrink-0">
             <MessageCircle className="h-4 w-4" /> Connect
           </Button>
@@ -444,10 +444,10 @@ function ExpertCard({
               <Send className="h-4 w-4" /> Message
             </Link>
           </Button>
-          <Button size="sm" className="flex-1 min-w-0 rounded-lg gap-1.5 btn-primary" onClick={onOpenProfile} asChild>
-            <Link href={`/industry-experts/${expert.id}`}>View Profile</Link>
+          <Button size="sm" className="rounded-lg gap-1.5 btn-primary shrink-0 min-w-[7.5rem]" asChild>
+            <Link href={`/industry-experts/${expert.id}`} className="inline-flex items-center justify-center">View Profile</Link>
           </Button>
-          <button type="button" className="rounded-full p-2 border border-primary/30 bg-white dark:bg-slate-800/50 text-primary hover:bg-primary/5" aria-label="Share">
+          <button type="button" className="rounded-full p-2 shrink-0 border border-primary/30 bg-white dark:bg-slate-800/50 text-primary hover:bg-primary/5" aria-label="Share">
             <Share2 className="h-4 w-4" />
           </button>
         </div>
