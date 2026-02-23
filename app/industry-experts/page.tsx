@@ -270,7 +270,7 @@ export default function IndustryExpertsPage() {
               <p className="text-sm text-muted">
                 Showing {(safePage - 1) * PAGE_SIZE + 1}–{Math.min(safePage * PAGE_SIZE, sorted.length)} of {sorted.length} expert{sorted.length !== 1 ? 's' : ''}
               </p>
-              <div className="grid gap-6 sm:grid-cols-2">
+              <div className="grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
                 {paginated.map((e) => (
                   <ExpertCard
                     key={e.id}
@@ -437,20 +437,20 @@ function ExpertCard({
 
         <div className="pt-3 mt-1 border-t border-slate-200 dark:border-slate-700 space-y-2" onClick={(e) => e.stopPropagation()}>
           <div className="flex items-center gap-2 flex-wrap">
-            <Button size="sm" variant="outline" className="rounded-lg gap-1.5 shrink-0">
-              <MessageCircle className="h-4 w-4" /> Connect
+            <Button size="sm" variant="outline" className="rounded-lg gap-1.5 shrink-0 min-h-9 min-w-[6.5rem] justify-center">
+              <MessageCircle className="h-4 w-4 shrink-0" /> Connect
             </Button>
-            <Button size="sm" variant="outline" className="rounded-lg gap-1.5 shrink-0" asChild>
-              <Link href="/messages">
-                <Send className="h-4 w-4" /> Message
+            <Button size="sm" variant="outline" className="rounded-lg gap-1.5 shrink-0 min-h-9 min-w-[6.5rem] justify-center" asChild>
+              <Link href="/messages" className="inline-flex items-center justify-center gap-1.5 min-h-9 min-w-[6.5rem]">
+                <Send className="h-4 w-4 shrink-0" /> Message
               </Link>
             </Button>
-            <button type="button" className="rounded-full p-2 shrink-0 border border-primary/30 bg-white dark:bg-slate-800/50 text-primary hover:bg-primary/5" aria-label="Share">
+            <button type="button" className="rounded-full p-2 shrink-0 border border-primary/30 bg-white dark:bg-slate-800/50 text-primary hover:bg-primary/5 h-9 w-9 flex items-center justify-center" aria-label="Share">
               <Share2 className="h-4 w-4" />
             </button>
           </div>
-          <Button size="sm" className="w-full rounded-lg gap-1.5 btn-primary justify-center" asChild>
-            <Link href={`/industry-experts/${expert.id}`} className="inline-flex items-center justify-center w-full">View Profile</Link>
+          <Button size="sm" className="w-full rounded-lg gap-1.5 btn-primary min-h-9 justify-center" asChild>
+            <Link href={`/industry-experts/${expert.id}`} className="inline-flex items-center justify-center w-full min-h-9">View Profile</Link>
           </Button>
         </div>
       </CardContent>
