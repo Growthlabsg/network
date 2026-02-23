@@ -241,7 +241,7 @@ function StartupsPageInner() {
       ctaLabel="Exhibit your startup"
       stats={stats}
     >
-      <div className="grid md:grid-cols-4 gap-6">
+      <div className="grid md:grid-cols-4 gap-4 md:gap-6 max-md:min-w-0 max-md:overflow-x-hidden">
         {/* Filters sidebar – collapsible on mobile */}
         <aside
           className={cn(
@@ -249,7 +249,7 @@ function StartupsPageInner() {
             filtersOpen ? 'block' : 'hidden md:block'
           )}
         >
-          <div className="rounded-xl border border-gray-200 dark:border-slate-700/50 bg-white dark:bg-slate-900/30 p-4 md:sticky md:top-24 max-md:max-h-[85vh] max-md:overflow-y-auto">
+          <div className="rounded-xl border border-gray-200 dark:border-slate-700/50 bg-white dark:bg-slate-900/30 p-4 md:sticky md:top-24 max-md:max-h-[85vh] max-md:overflow-y-auto max-md:pb-[env(safe-area-inset-bottom)]">
             <div className="flex items-center justify-between mb-4 gap-2">
               <h3 className="font-medium text-growthlab-slate flex items-center gap-2">
                 <Filter className="h-4 w-4 text-primary" />
@@ -352,7 +352,7 @@ function StartupsPageInner() {
           </div>
         </aside>
 
-        <div className="md:col-span-3 space-y-4">
+        <div className="md:col-span-3 space-y-4 min-w-0">
           <div className="flex flex-col gap-4">
             <div className="flex flex-col gap-3">
               <div className="relative flex-1 min-w-0">
@@ -365,7 +365,7 @@ function StartupsPageInner() {
                   aria-label="Search startups"
                 />
               </div>
-              <div className="flex gap-2 overflow-x-auto pb-1 -mx-1 scrollbar-thin md:overflow-visible md:flex-wrap items-center min-h-11">
+              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin md:overflow-visible md:flex-wrap items-center min-h-11 max-md:overflow-y-hidden max-md:-mx-0">
                 <span className="flex items-center rounded-xl border border-gray-200 dark:border-slate-600 p-0.5 shrink-0" role="group" aria-label="View mode">
                   <button
                     type="button"
@@ -436,7 +436,7 @@ function StartupsPageInner() {
             </div>
 
             {/* Quick filter chips – horizontal scroll on mobile, wrap on desktop */}
-            <div className="flex overflow-x-auto pb-2 -mx-1 scrollbar-thin md:overflow-visible md:flex-wrap items-center gap-2 md:gap-2">
+            <div className="flex overflow-x-auto pb-2 scrollbar-thin md:overflow-visible md:flex-wrap items-center gap-2 max-md:overflow-y-hidden">
               {[
                 { key: 'hiring', label: 'Hiring', on: hiringOnly, set: setHiringOnly },
                 { key: 'verified', label: 'Verified', on: verifiedOnly, set: setVerifiedOnly },
@@ -493,12 +493,12 @@ function StartupsPageInner() {
                 <Sparkles className="h-4 w-4 text-primary" />
                 <span className="text-sm font-medium text-growthlab-slate">Featured startups</span>
               </div>
-              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin">
+              <div className="flex gap-3 overflow-x-auto pb-2 scrollbar-thin max-md:-mx-0">
                 {featuredStartups.map((s) => (
                   <Link
                     key={s.id}
                     href={`/startups/${s.id}`}
-                    className="flex shrink-0 items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900/50 px-3 py-2.5 min-w-[200px] min-h-11 hover:border-primary/50 hover:bg-primary/[0.04] dark:hover:bg-primary/10 transition-colors touch-target"
+                    className="flex shrink-0 items-center gap-3 rounded-xl border border-slate-200 dark:border-slate-600 bg-white dark:bg-slate-900/50 px-3 py-2.5 min-w-[180px] sm:min-w-[200px] min-h-11 hover:border-primary/50 hover:bg-primary/[0.04] dark:hover:bg-primary/10 transition-colors touch-target"
                   >
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 dark:bg-primary/15">
                       <Rocket className="h-5 w-5 text-primary" />
@@ -516,7 +516,7 @@ function StartupsPageInner() {
 
           {paginated.length === 0 ? (
             <Card className="rounded-2xl border border-dashed border-slate-200 dark:border-slate-700 bg-gradient-to-b from-slate-50/80 to-white dark:from-slate-800/30 dark:to-slate-900/30">
-              <CardContent className="p-12 text-center">
+              <CardContent className="p-6 sm:p-8 md:p-12 text-center">
                 <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 dark:bg-primary/15 text-primary mb-4">
                   <Search className="h-7 w-7" />
                 </div>
@@ -539,15 +539,15 @@ function StartupsPageInner() {
                 <span className="text-sm font-medium text-growthlab-slate">Badge view</span>
                 <span className="text-xs text-muted">— compact grid</span>
               </div>
-              <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 gap-y-4" role="list">
+              <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 sm:gap-3 gap-y-3 sm:gap-y-4" role="list">
                 {paginated.map((startup) => (
                   <StartupBadge key={startup.id} startup={startup} saved={savedIds.has(startup.id)} onToggleSaved={() => toggleSaved(startup.id)} stageColour={STAGE_COLOUR[startup.stage] ?? STAGE_PILL} regionColour={REGION_COLOUR} />
                 ))}
               </ul>
               {totalPages > 1 && (
-                <nav className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-gray-200 dark:border-slate-700" aria-label="Pagination">
-                  <p className="text-sm text-muted">Page {safePage} of {totalPages}</p>
-                  <div className="flex items-center gap-2">
+                <nav className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 pt-4 border-t border-gray-200 dark:border-slate-700 max-md:flex-col max-md:items-stretch" aria-label="Pagination">
+                  <p className="text-sm text-muted order-2 md:order-1 text-center md:text-left">Page {safePage} of {totalPages}</p>
+                  <div className="flex items-center justify-center gap-2 order-1 md:order-2">
                     <Button variant="outline" size="sm" className="rounded-lg min-h-11 min-w-11 touch-target" onClick={() => setPage((p) => Math.max(1, p - 1))} disabled={safePage <= 1} aria-label="Previous page">
                       <ChevronLeft className="h-4 w-4" />
                     </Button>
@@ -581,18 +581,18 @@ function StartupsPageInner() {
             </div>
           ) : (
             <div key="card-view" className="contents">
-              <ul className="space-y-4" role="list">
+              <ul className="space-y-3 md:space-y-4" role="list">
                 {paginated.map((startup) => (
                   <StartupCard key={startup.id} startup={startup} saved={savedIds.has(startup.id)} onToggleSaved={() => toggleSaved(startup.id)} stageColour={STAGE_COLOUR[startup.stage] ?? STAGE_PILL} regionColour={REGION_COLOUR} />
                 ))}
               </ul>
 
               {totalPages > 1 && (
-                <nav className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-gray-200 dark:border-slate-700" aria-label="Pagination">
-                  <p className="text-sm text-muted">
+                <nav className="flex flex-wrap items-center justify-between gap-3 sm:gap-4 pt-4 border-t border-gray-200 dark:border-slate-700 max-md:flex-col max-md:items-stretch" aria-label="Pagination">
+                  <p className="text-sm text-muted order-2 md:order-1 text-center md:text-left">
                     Page {safePage} of {totalPages}
                   </p>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-center gap-2 order-1 md:order-2">
                     <Button
                       variant="outline"
                       size="sm"
@@ -773,9 +773,9 @@ function StartupCard({
       >
         <Heart className={cn('h-4 w-4', saved ? 'fill-rose-400 text-rose-500' : 'text-muted')} />
       </button>
-      <CardContent className="p-5 sm:p-6">
-        <div className="flex flex-col md:flex-row gap-5">
-          <div className="relative h-16 w-16 shrink-0 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-600 bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
+      <CardContent className="p-4 sm:p-5 md:p-6">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-5">
+          <div className="relative h-14 w-14 sm:h-16 sm:w-16 shrink-0 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-600 bg-slate-100 dark:bg-slate-800 flex items-center justify-center">
             {startup.logo ? (
               <img src={startup.logo} alt="" className="w-full h-full object-cover" />
             ) : (
@@ -787,9 +787,9 @@ function StartupCard({
               </span>
             )}
           </div>
-          <div className="flex-1 min-w-0 pr-8">
+          <div className="flex-1 min-w-0 pr-10 sm:pr-8">
             <div className="flex flex-wrap items-center gap-2 mb-2">
-              <h3 className="text-lg font-bold text-growthlab-slate">{startup.name}</h3>
+              <h3 className="text-base sm:text-lg font-bold text-growthlab-slate break-words">{startup.name}</h3>
               <span className={cn('rounded-md border px-2 py-0.5 text-xs font-medium', stageColour)}>{startup.stage}</span>
               {startup.verified && (
                 <Badge variant="secondary" className="text-xs bg-primary/12 text-primary border-0 dark:bg-primary/20 dark:text-primary">
@@ -804,8 +804,8 @@ function StartupCard({
                 </Badge>
               )}
             </div>
-            <p className="text-muted text-sm mb-4 line-clamp-2">{startup.description}</p>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
+            <p className="text-muted text-sm mb-3 md:mb-4 line-clamp-2">{startup.description}</p>
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3 mb-3 md:mb-4">
               <div className="text-center p-2.5 rounded-xl bg-primary/8 dark:bg-primary/15 border border-primary/15">
                 <div className="text-base font-bold text-primary">{startup.funding}</div>
                 <div className="text-xs text-muted">Funding</div>
@@ -823,14 +823,14 @@ function StartupCard({
                 <div className="text-xs text-muted">Views</div>
               </div>
             </div>
-            <div className="flex flex-wrap gap-3 text-sm text-muted mb-3">
+            <div className="flex flex-wrap gap-x-3 gap-y-1 text-sm text-muted mb-3 min-w-0">
               <span className="flex items-center gap-1">
                 <Building className="h-4 w-4 shrink-0" />
-                {startup.industry}
+                <span className="break-words">{startup.industry}</span>
               </span>
               <span className="flex items-center gap-1">
                 <MapPin className="h-4 w-4 shrink-0" />
-                {startup.location}
+                <span className="break-words">{startup.location}</span>
                 <span className={regionColour}> · {startup.region}</span>
               </span>
               <span className="flex items-center gap-1">
@@ -838,15 +838,15 @@ function StartupCard({
                 Founded {startup.foundedYear}
               </span>
             </div>
-            <div className="flex flex-wrap gap-2 mb-4">
+            <div className="flex flex-wrap gap-2 mb-3 md:mb-4">
               {startup.tags.map((tag) => (
                 <Badge key={tag} variant="outline" className="text-xs bg-slate-100 dark:bg-slate-800/50 border-slate-200 dark:border-slate-600 text-growthlab-slate">
                   {tag}
                 </Badge>
               ))}
             </div>
-            <div className="flex flex-wrap gap-2 items-center justify-between">
-              <div className="flex gap-2">
+            <div className="flex flex-wrap gap-2 items-center justify-between gap-y-2">
+              <div className="flex flex-wrap gap-2 min-w-0">
                 {startup.hiring && (
                   <Badge variant="outline" className="text-xs bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-600 text-growthlab-slate dark:text-slate-200">
                     <Users className="h-3 w-3 mr-1" />
