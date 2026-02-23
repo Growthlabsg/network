@@ -436,16 +436,16 @@ function ExpertCard({
         </div>
 
         <div className="pt-3 mt-1 border-t border-slate-200 dark:border-slate-700 space-y-2" onClick={(e) => e.stopPropagation()}>
-          <div className="flex items-center gap-2 flex-wrap">
-            <Button size="sm" variant="outline" className="rounded-lg gap-1.5 shrink-0 min-h-9 min-w-[6.5rem] justify-center">
+          <div className="flex items-center gap-2 flex-nowrap min-w-0">
+            <Button size="sm" variant="outline" className="rounded-lg gap-1.5 min-h-9 flex-1 min-w-0 justify-center basis-0">
               <MessageCircle className="h-4 w-4 shrink-0" /> Connect
             </Button>
-            <Button size="sm" variant="outline" className="rounded-lg gap-1.5 shrink-0 min-h-9 min-w-[6.5rem] justify-center" asChild>
-              <Link href="/messages" className="inline-flex items-center justify-center gap-1.5 min-h-9 min-w-[6.5rem]">
+            <Button size="sm" variant="outline" className="rounded-lg gap-1.5 min-h-9 flex-1 min-w-0 justify-center basis-0" asChild>
+              <Link href="/messages" className="inline-flex items-center justify-center gap-1.5 min-h-9 w-full min-w-0">
                 <Send className="h-4 w-4 shrink-0" /> Message
               </Link>
             </Button>
-            <button type="button" className="rounded-full p-2 shrink-0 border border-primary/30 bg-white dark:bg-slate-800/50 text-primary hover:bg-primary/5 h-9 w-9 flex items-center justify-center" aria-label="Share">
+            <button type="button" className="rounded-full shrink-0 border border-primary/30 bg-white dark:bg-slate-800/50 text-primary hover:bg-primary/5 h-9 w-9 flex items-center justify-center" aria-label="Share">
               <Share2 className="h-4 w-4" />
             </button>
           </div>
