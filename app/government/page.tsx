@@ -407,7 +407,7 @@ function AgencyCard({ agency, onOpenProfile }: { agency: GovernmentAgency; onOpe
               <Link href="/messages" className="inline-flex items-center justify-center gap-1.5 min-h-9 min-w-[6.5rem]">
                 <Send className="h-4 w-4 shrink-0" /> Message
               </Link>
-            </button>
+            </Button>
             <button type="button" className="rounded-full shrink-0 border border-primary/30 bg-white dark:bg-slate-800/50 text-primary hover:bg-primary/5 h-9 w-9 flex items-center justify-center" aria-label="Share">
               <Share2 className="h-4 w-4" />
             </button>
